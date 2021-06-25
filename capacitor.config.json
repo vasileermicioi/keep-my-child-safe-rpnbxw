@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "Keep my child safe",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}
