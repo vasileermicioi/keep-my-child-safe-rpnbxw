@@ -8,6 +8,8 @@ import {
   IonFabButton,
   IonHeader,
   IonIcon,
+  IonItem,
+  IonLabel,
   IonList,
   IonPage,
   IonRefresher,
@@ -30,7 +32,7 @@ export const ChildList = () => {
     <IonPage id="home-page">
       <IonHeader>
         <IonToolbar>
-          <IonTitle size="large">Children</IonTitle>
+          <IonTitle>Children</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonFab vertical="top" horizontal="end" slot="fixed">
@@ -80,6 +82,8 @@ export const ChildList = () => {
                           day: (alertData.age as String).slice(8, 10),
                         },
                         id: "_" + Math.random().toString(36).substr(2, 9),
+                        avarar:
+                          "https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y",
                       },
                     ]);
                   },
@@ -95,26 +99,26 @@ export const ChildList = () => {
         <IonRefresher slot="fixed">
           <IonRefresherContent></IonRefresherContent>
         </IonRefresher>
-
         <IonList>
           {(childData as Child[]).map((child: Child) => (
-            <IonCard routerLink={`child/${child.id}`}>
-              <IonCardContent>
-                <IonAvatar>
-                  <img
-                    src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"
-                    alt=""
-                  />
-                </IonAvatar>
-                <IonTitle>{child.Name}</IonTitle>
-                <IonCardSubtitle>
+            <IonItem routerLink={`child/${child.id}`}>
+              <IonAvatar>
+                <img
+                  src={
+                    child.avatar ||
+                    "https://images.unsplash.com/photo-1546015720-b8b30df5aa27?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+                  }
+                  alt="img"
+                />
+              </IonAvatar>
+              <IonLabel>
+                <h2 style={{ paddingLeft: 8 }}>{child.Name}</h2>
+                <p style={{ paddingLeft: 6 }}>
                   {child.birthdate.day}/{child.birthdate.month}/
                   {child.birthdate.year}
-                </IonCardSubtitle>
-                <div></div>
-                <div></div>
-              </IonCardContent>
-            </IonCard>
+                </p>
+              </IonLabel>
+            </IonItem>
           ))}
         </IonList>
       </IonContent>

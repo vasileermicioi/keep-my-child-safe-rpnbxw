@@ -2,6 +2,7 @@ import { useParams } from "react-router";
 import {
   IonBackButton,
   IonButtons,
+  IonCard,
   IonCol,
   IonContent,
   IonFab,
@@ -15,6 +16,7 @@ import {
   IonListHeader,
   IonPage,
   IonRow,
+  IonTitle,
   IonToolbar,
   useIonAlert,
 } from "@ionic/react";
@@ -43,11 +45,9 @@ export const ViewChild = () => {
       <IonHeader translucent>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton
-              text="Child Metrics"
-              defaultHref="/ChildList"
-            ></IonBackButton>
+            <IonBackButton text="Back" defaultHref="/ChildList"></IonBackButton>
           </IonButtons>
+          <IonTitle>Child metrics</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
@@ -100,7 +100,9 @@ export const ViewChild = () => {
                                     dateTime:
                                       date.getHours() +
                                       ":" +
-                                      date.getMinutes() +
+                                      (date.getMinutes() <= 9
+                                        ? "0" + date.getMinutes()
+                                        : date.getMinutes() <= 9) +
                                       " " +
                                       date.getDate() +
                                       "/" +
@@ -132,50 +134,52 @@ export const ViewChild = () => {
 
             {content.measurements?.reverse().map((measurement) => {
               return (
-                <IonList inset={true} lines="full">
-                  <IonListHeader>
-                    {measurement.dateTime || "13:26 27/06"}
-                  </IonListHeader>
-                  <IonGrid>
-                    <IonRow>
-                      <IonCol>
-                        <IonIcon icon={thermometerOutline}></IonIcon>
-                        {measurement.temperature}
-                      </IonCol>
-                      {measurement.heartBeat ? (
-                        <>
-                          <IonCol>
-                            <IonIcon icon={fitnessOutline}></IonIcon>
-                            {measurement.heartBeat}
-                          </IonCol>
-                        </>
-                      ) : (
-                        <></>
-                      )}
-                      {measurement.respiratoryFrequency ? (
-                        <>
-                          <IonCol>
-                            <IonIcon icon={swapVerticalOutline}></IonIcon>
-                            {measurement.respiratoryFrequency}
-                          </IonCol>
-                        </>
-                      ) : (
-                        <></>
-                      )}
-                      {measurement.alert || true ? (
-                        <>
-                          <IonCol>
-                            <IonIcon icon={alertCircleOutline}></IonIcon>
-                            {/* {measurement.alert} */}
-                            It`s ok
-                          </IonCol>
-                        </>
-                      ) : (
-                        <></>
-                      )}
-                    </IonRow>
-                  </IonGrid>
-                </IonList>
+                <IonCard>
+                  <IonList inset={true} lines="full">
+                    <IonListHeader>
+                      {measurement.dateTime || "13:26 27/06"}
+                    </IonListHeader>
+                    <IonGrid>
+                      <IonRow>
+                        <IonCol>
+                          <IonIcon icon={thermometerOutline}></IonIcon>
+                          {measurement.temperature}
+                        </IonCol>
+                        {measurement.heartBeat ? (
+                          <>
+                            <IonCol>
+                              <IonIcon icon={fitnessOutline}></IonIcon>
+                              {measurement.heartBeat}
+                            </IonCol>
+                          </>
+                        ) : (
+                          <></>
+                        )}
+                        {measurement.respiratoryFrequency ? (
+                          <>
+                            <IonCol>
+                              <IonIcon icon={swapVerticalOutline}></IonIcon>
+                              {measurement.respiratoryFrequency}
+                            </IonCol>
+                          </>
+                        ) : (
+                          <></>
+                        )}
+                        {measurement.alert || true ? (
+                          <>
+                            <IonCol>
+                              <IonIcon icon={alertCircleOutline}></IonIcon>
+                              {/* {measurement.alert} */}
+                              It`s ok
+                            </IonCol>
+                          </>
+                        ) : (
+                          <></>
+                        )}
+                      </IonRow>
+                    </IonGrid>
+                  </IonList>
+                </IonCard>
               );
             })}
           </>
