@@ -1,18 +1,13 @@
 import {
   IonAvatar,
-  IonButton,
   IonCard,
   IonCardContent,
-  IonCardHeader,
   IonCardSubtitle,
   IonContent,
-  IonDatetime,
   IonFab,
   IonFabButton,
   IonHeader,
   IonIcon,
-  IonItem,
-  IonLabel,
   IonList,
   IonPage,
   IonRefresher,
@@ -21,7 +16,7 @@ import {
   IonToolbar,
   useIonAlert,
 } from "@ionic/react";
-import { add, refresh } from "ionicons/icons";
+import { add } from "ionicons/icons";
 import React from "react";
 import { useContext } from "react";
 import { Child, childDataContext } from "../context/childrenDataProvider";
@@ -29,7 +24,6 @@ import "./ChildList.css";
 
 export const ChildList = () => {
   const [childData, setChildData] = useContext(childDataContext);
-  const date = new Date();
 
   const [present] = useIonAlert();
   return (
@@ -69,19 +63,6 @@ export const ChildList = () => {
                 },
               ],
               buttons: [
-                // {
-                //   text: "Add date of birth",
-                //   handler: () => {
-                //     <IonItem>
-                //       <IonLabel>Date</IonLabel>
-                //       <IonDatetime
-                //         displayFormat="MMMM YYYY"
-                //         min="2016"
-                //         max="2020-10-31"
-                //       ></IonDatetime>
-                //     </IonItem>;
-                //   },
-                // },
                 "Cancel",
 
                 {
@@ -92,6 +73,7 @@ export const ChildList = () => {
                       ...prevState,
                       {
                         Name: alertData.name,
+                        weight: alertData.weight,
                         birthdate: {
                           year: (alertData.age as String).slice(0, 4),
                           month: (alertData.age as String).slice(5, 7),
@@ -106,14 +88,6 @@ export const ChildList = () => {
             });
           }}
         >
-          {/* <IonItem>
-            <IonLabel>Date</IonLabel>
-            <IonDatetime
-              displayFormat="MMMM YYYY"
-              min="2016"
-              max="2020-10-31"
-            ></IonDatetime>
-          </IonItem> */}
           <IonIcon icon={add} />
         </IonFabButton>
       </IonFab>
@@ -134,7 +108,6 @@ export const ChildList = () => {
                 </IonAvatar>
                 <IonTitle>{child.Name}</IonTitle>
                 <IonCardSubtitle>
-                  {" "}
                   {child.birthdate.day}/{child.birthdate.month}/
                   {child.birthdate.year}
                 </IonCardSubtitle>

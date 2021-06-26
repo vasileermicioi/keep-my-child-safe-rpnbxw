@@ -4,7 +4,7 @@ type measurement = {
   temperature: number;
   respiratoryFrequency?: number;
   heartBeat?: number;
-  drugAdministred?: string;
+  weight?: number;
   alert?: string;
   dateTime?: string;
 };

@@ -1,15 +1,8 @@
 import React from "react";
 import { useParams } from "react-router";
 import {
-  IonAvatar,
   IonBackButton,
-  IonButton,
   IonButtons,
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardSubtitle,
-  IonCardTitle,
   IonCol,
   IonContent,
   IonFab,
@@ -18,25 +11,19 @@ import {
   IonHeader,
   IonIcon,
   IonItem,
-  IonItemDivider,
   IonLabel,
   IonList,
   IonListHeader,
-  IonNote,
   IonPage,
-  IonRefresher,
-  IonRefresherContent,
   IonRow,
-  IonTitle,
   IonToolbar,
   useIonAlert,
 } from "@ionic/react";
 import { useContext } from "react";
 import { childDataContext } from "../context/childrenDataProvider";
 import { Child } from "../context/childrenDataProvider";
-import { add, alertCircleOutline, heartCircleOutline } from "ionicons/icons";
+import { add, alertCircleOutline } from "ionicons/icons";
 import {
-  time,
   thermometerOutline,
   fitnessOutline,
   swapVerticalOutline,
@@ -155,10 +142,6 @@ export const ViewChild = () => {
                   </IonListHeader>
                   <IonGrid>
                     <IonRow>
-                      {/* <IonCol>
-                      <IonIcon icon={time}></IonIcon>
-                      {measurement.dateTime}
-                    </IonCol> */}
                       <IonCol>
                         {" "}
                         <IonIcon icon={thermometerOutline}></IonIcon>
