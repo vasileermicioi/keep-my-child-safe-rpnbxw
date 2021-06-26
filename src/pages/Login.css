@@ -1,0 +1,11 @@
+.ion-icon {
+  font-size: larger;
+}
+.ion-page {
+  justify-content: center;
+  position: absolute;
+}
+
+.ion-button {
+  width: 5px;
+}

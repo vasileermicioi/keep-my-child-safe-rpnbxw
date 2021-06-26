@@ -10,15 +10,23 @@ import {
   IonCardHeader,
   IonCardSubtitle,
   IonCardTitle,
+  IonCol,
   IonContent,
+  IonFab,
+  IonFabButton,
+  IonGrid,
   IonHeader,
+  IonIcon,
   IonItem,
   IonItemDivider,
   IonLabel,
   IonList,
+  IonListHeader,
+  IonNote,
   IonPage,
   IonRefresher,
   IonRefresherContent,
+  IonRow,
   IonTitle,
   IonToolbar,
   useIonAlert,
@@ -26,6 +34,13 @@ import {
 import { useContext } from "react";
 import { childDataContext } from "../context/childrenDataProvider";
 import { Child } from "../context/childrenDataProvider";
+import { add, alertCircleOutline, heartCircleOutline } from "ionicons/icons";
+import {
+  time,
+  thermometerOutline,
+  fitnessOutline,
+  swapVerticalOutline,
+} from "ionicons/icons";
 
 export const ViewChild = () => {
   const [present] = useIonAlert();
@@ -46,84 +61,84 @@ export const ViewChild = () => {
               text="Child Metrics"
               defaultHref="/ChildList"
             ></IonBackButton>
-            <IonButton
-              shape="round"
-              onClick={() => {
-                present({
-                  cssClass: "my-css",
-                  header: "Add measurement",
-                  message: "Add data about your child`s health",
-                  inputs: [
-                    {
-                      name: "temperature",
-                      type: "number",
-                      label: "Temperature",
-                      placeholder: "Temperature",
-                    },
-                    {
-                      name: "drugsAdministred",
-                      type: "text",
-                      label: "Drugs Administred",
-                      placeholder: "Drugs Administred",
-                    },
-                    {
-                      name: "heartBeat",
-                      type: "number",
-                      label: "Heart Beat",
-                      placeholder: "Heart Beat",
-                    },
-                    {
-                      name: "respiratoryFrequency",
-                      type: "number",
-                      label: "Respiratory Frequency",
-                      placeholder: "Respiratory Frequency",
-                    },
-                  ],
-                  buttons: [
-                    "Cancel",
-                    {
-                      text: "Add",
-                      handler: (alertData) => {
-                        setChildData((prevState: Child[]) => {
-                          return prevState.map((child: Child) => {
-                            return child.Name === content.Name
-                              ? {
-                                  ...child,
-                                  measurements: [
-                                    ...(content.measurements
-                                      ? (content.measurements as [])
-                                      : []),
-                                    {
-                                      temperature: alertData.temperature,
-                                      drugAdministred:
-                                        alertData.drugsAdministred,
-                                      respiratoryFrequency:
-                                        alertData.respiratoryFrequency,
-                                      heartBeat: alertData.heartBeat,
-                                      dateTime:
-                                        date.getHours() +
-                                        ":" +
-                                        date.getMinutes() +
-                                        " " +
-                                        date.getDate(),
-                                    },
-                                  ],
-                                }
-                              : child;
-                          });
-                        });
-                      },
-                    },
-                  ],
-                });
-              }}
-            >
-              +
-            </IonButton>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent>
+        <IonFab vertical="top" horizontal="end" slot="fixed">
+          <IonFabButton
+            onClick={() => {
+              present({
+                cssClass: "my-css",
+                header: "Add measurement",
+                message: "Add data about your child`s health",
+                inputs: [
+                  {
+                    name: "temperature",
+                    type: "number",
+                    label: "Temperature",
+                    placeholder: "Temperature",
+                  },
+                  {
+                    name: "drugsAdministred",
+                    type: "text",
+                    label: "Drugs Administred",
+                    placeholder: "Drugs Administred",
+                  },
+                  {
+                    name: "heartBeat",
+                    type: "number",
+                    label: "Heart Beat",
+                    placeholder: "Heart Beat",
+                  },
+                  {
+                    name: "respiratoryFrequency",
+                    type: "number",
+                    label: "Respiratory Frequency",
+                    placeholder: "Respiratory Frequency",
+                  },
+                ],
+                buttons: [
+                  "Cancel",
+                  {
+                    text: "Add",
+                    handler: (alertData) => {
+                      setChildData((prevState: Child[]) => {
+                        return prevState.map((child: Child) => {
+                          return child.Name === content.Name
+                            ? {
+                                ...child,
+                                measurements: [
+                                  ...(content.measurements
+                                    ? (content.measurements as [])
+                                    : []),
+                                  {
+                                    temperature: alertData.temperature,
+                                    drugAdministred: alertData.drugsAdministred,
+                                    respiratoryFrequency:
+                                      alertData.respiratoryFrequency,
+                                    heartBeat: alertData.heartBeat,
+                                    dateTime:
+                                      date.getHours() +
+                                      ":" +
+                                      date.getMinutes() +
+                                      " " +
+                                      date.getDate(),
+                                  },
+                                ],
+                              }
+                            : child;
+                        });
+                      });
+                    },
+                  },
+                ],
+              });
+            }}
+          >
+            <IonIcon icon={add} />
+          </IonFabButton>
+        </IonFab>
         {index !== -1 ? (
           <>
             <IonItem>
@@ -132,56 +147,57 @@ export const ViewChild = () => {
               </IonLabel>
             </IonItem>
 
-            {content.measurements?.map((measurement) => {
-              console.log(content);
+            {content.measurements?.reverse().map((measurement) => {
               return (
-                <IonItemDivider>
-                  <IonCard>
-                    <IonCardTitle>{measurement.dateTime}</IonCardTitle>
-                    <IonCardContent>
-                      <p>Temperature:{measurement.temperature}</p>
-                    </IonCardContent>
-                    {measurement.drugAdministred ? (
-                      <>
-                        <IonCardContent>
-                          <p>Drug Administred:{measurement.drugAdministred}</p>
-                        </IonCardContent>
-                      </>
-                    ) : (
-                      <></>
-                    )}
-                    {measurement.heartBeat ? (
-                      <>
-                        <IonCardContent>
-                          <p>Heart Beat:{measurement.heartBeat}</p>
-                        </IonCardContent>
-                      </>
-                    ) : (
-                      <></>
-                    )}
-                    {measurement.respiratoryFrequency ? (
-                      <>
-                        <IonCardContent>
-                          <p>
-                            Respiratory Frequency:
+                <IonList inset={true} lines="full">
+                  <IonListHeader>
+                    {measurement.dateTime || "13:26 27/06"}
+                  </IonListHeader>
+                  <IonGrid>
+                    <IonRow>
+                      {/* <IonCol>
+                      <IonIcon icon={time}></IonIcon>
+                      {measurement.dateTime}
+                    </IonCol> */}
+                      <IonCol>
+                        {" "}
+                        <IonIcon icon={thermometerOutline}></IonIcon>
+                        {measurement.temperature}
+                      </IonCol>
+                      {measurement.heartBeat ? (
+                        <>
+                          <IonCol>
+                            <IonIcon icon={fitnessOutline}></IonIcon>
+                            {measurement.heartBeat}
+                          </IonCol>
+                        </>
+                      ) : (
+                        <></>
+                      )}
+                      {measurement.respiratoryFrequency ? (
+                        <>
+                          <IonCol>
+                            <IonIcon icon={swapVerticalOutline}></IonIcon>
                             {measurement.respiratoryFrequency}
-                          </p>
-                        </IonCardContent>
-                      </>
-                    ) : (
-                      <></>
-                    )}
-                    {measurement.alert ? (
-                      <>
-                        <IonCardContent>
-                          <p>State:{measurement.alert}</p>
-                        </IonCardContent>
-                      </>
-                    ) : (
-                      <></>
-                    )}
-                  </IonCard>
-                </IonItemDivider>
+                          </IonCol>
+                        </>
+                      ) : (
+                        <></>
+                      )}
+                      {measurement.alert || true ? (
+                        <>
+                          <IonCol>
+                            <IonIcon icon={alertCircleOutline}></IonIcon>
+                            {/* {measurement.alert} */}
+                            It`s ok
+                          </IonCol>
+                        </>
+                      ) : (
+                        <></>
+                      )}
+                    </IonRow>
+                  </IonGrid>
+                </IonList>
               );
             })}
           </>
