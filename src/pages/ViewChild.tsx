@@ -21,7 +21,7 @@ import {
   useIonAlert,
 } from "@ionic/react";
 import { useContext } from "react";
-import { childDataContext } from "../context/childrenDataProvider";
+import { childDataContext, measurement } from "../context/childrenDataProvider";
 import { Child } from "../context/childrenDataProvider";
 import { add, alertCircleOutline } from "ionicons/icons";
 import {
@@ -29,6 +29,8 @@ import {
   fitnessOutline,
   swapVerticalOutline,
 } from "ionicons/icons";
+import { getWarning } from "../functions/getWarning";
+import { getAgeInMonths } from "../functions/getMonths";
 
 export const ViewChild = () => {
   const [present] = useIonAlert();
@@ -39,15 +41,16 @@ export const ViewChild = () => {
   const date = new Date();
   const index = childData.findIndex((el) => el.id === params.id);
   const content = childData[index];
-
+  console.log(content);
+  let measurementData = [...(content.measurements as [])];
+  measurementData.reverse();
+  console.log(measurementData);
   return (
     <IonPage id="view-message-page">
       <IonHeader translucent>
         <IonToolbar>
           <IonButtons slot="start">
-
             <IonBackButton text="Back" defaultHref="/ChildList"></IonBackButton>
-
           </IonButtons>
           <IonTitle>Child metrics</IonTitle>
         </IonToolbar>
@@ -95,6 +98,9 @@ export const ViewChild = () => {
                                     ? (content.measurements as [])
                                     : []),
                                   {
+                                    id:
+                                      "_" +
+                                      Math.random().toString(36).substr(2, 9),
                                     temperature: alertData.temperature,
                                     respiratoryFrequency:
                                       alertData.respiratoryFrequency,
@@ -102,11 +108,9 @@ export const ViewChild = () => {
                                     dateTime:
                                       date.getHours() +
                                       ":" +
-
                                       (date.getMinutes() <= 9
                                         ? "0" + date.getMinutes()
-                                        : date.getMinutes() <= 9) +
-
+                                        : date.getMinutes()) +
                                       " " +
                                       date.getDate() +
                                       "/" +
@@ -136,13 +140,20 @@ export const ViewChild = () => {
               </IonLabel>
             </IonItem>
 
-            {content.measurements?.reverse().map((measurement) => {
+            {(measurementData as measurement[]).map((measurement) => {
               return (
-
-                <IonCard>
+                <IonCard routerLink={`/measurement/${measurement.id}`}>
                   <IonList inset={true} lines="full">
                     <IonListHeader>
-                      {measurement.dateTime || "13:26 27/06"}
+                      <p
+                        style={{
+                          marginBottom: -4,
+                          marginTop: -20,
+                          fontSize: "19px",
+                        }}
+                      >
+                        {measurement.dateTime || "13:26 27/06"}
+                      </p>
                     </IonListHeader>
                     <IonGrid>
                       <IonRow>
@@ -170,12 +181,18 @@ export const ViewChild = () => {
                         ) : (
                           <></>
                         )}
-                        {measurement.alert || true ? (
+                        {true ? (
                           <>
                             <IonCol>
                               <IonIcon icon={alertCircleOutline}></IonIcon>
-                              {/* {measurement.alert} */}
-                              It`s ok
+                              {getWarning(
+                                getAgeInMonths(
+                                  content.birthdate.year,
+                                  content.birthdate.month,
+                                  content.birthdate.day
+                                ),
+                                measurement.temperature
+                              )}
                             </IonCol>
                           </>
                         ) : (
@@ -185,7 +202,6 @@ export const ViewChild = () => {
                     </IonGrid>
                   </IonList>
                 </IonCard>
-
               );
             })}
           </>

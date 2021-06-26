@@ -8,10 +8,8 @@ import {
   IonFabButton,
   IonHeader,
   IonIcon,
-
   IonItem,
   IonLabel,
-
   IonList,
   IonPage,
   IonRefresher,
@@ -24,6 +22,7 @@ import { add } from "ionicons/icons";
 import React from "react";
 import { useContext } from "react";
 import { Child, childDataContext } from "../context/childrenDataProvider";
+import { getAgeInMonths } from "../functions/getMonths";
 import "./ChildList.css";
 
 export const ChildList = () => {
@@ -34,9 +33,7 @@ export const ChildList = () => {
     <IonPage id="home-page">
       <IonHeader>
         <IonToolbar>
-
           <IonTitle>Children</IonTitle>
-
         </IonToolbar>
       </IonHeader>
       <IonFab vertical="top" horizontal="end" slot="fixed">
@@ -64,8 +61,8 @@ export const ChildList = () => {
                   type: "date",
                   label: "Child age",
                   placeholder: "Age",
-                  min: "2017-03-01",
-                  max: "2018-01-12",
+                  min: "2016-01-01",
+                  max: "2022-01-01",
                 },
               ],
               buttons: [
@@ -89,7 +86,7 @@ export const ChildList = () => {
 
                         avarar:
                           "https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y",
-
+                        measurements: [],
                       },
                     ]);
                   },
@@ -105,7 +102,6 @@ export const ChildList = () => {
         <IonRefresher slot="fixed">
           <IonRefresherContent></IonRefresherContent>
         </IonRefresher>
-
         <IonList>
           {(childData as Child[]).map((child: Child) => (
             <IonItem routerLink={`child/${child.id}`}>
@@ -121,12 +117,15 @@ export const ChildList = () => {
               <IonLabel>
                 <h2 style={{ paddingLeft: 8 }}>{child.Name}</h2>
                 <p style={{ paddingLeft: 6 }}>
-                  {child.birthdate.day}/{child.birthdate.month}/
-                  {child.birthdate.year}
+                  Months:
+                  {getAgeInMonths(
+                    child.birthdate.year,
+                    child.birthdate.month,
+                    child.birthdate.day
+                  )}
                 </p>
               </IonLabel>
             </IonItem>
-
           ))}
         </IonList>
       </IonContent>

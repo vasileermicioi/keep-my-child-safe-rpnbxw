@@ -23,11 +23,15 @@ import "./theme/variables.css";
 import { Login } from "./pages/Login";
 import { ChildList } from "./pages/ChildList";
 import { ViewChild } from "./pages/ViewChild";
+import { ViewAlert } from "./pages/ViewAlert";
 
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
+        <Route path="/measurement/:id">
+          <ViewAlert />
+        </Route>
         <Route path="/login" exact={true}>
           <Login />
         </Route>
