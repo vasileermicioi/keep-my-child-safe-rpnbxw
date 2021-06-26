@@ -1,4 +1,3 @@
-import React from "react";
 import { useParams } from "react-router";
 import {
   IonBackButton,
@@ -67,12 +66,6 @@ export const ViewChild = () => {
                     placeholder: "Temperature",
                   },
                   {
-                    name: "drugsAdministred",
-                    type: "text",
-                    label: "Drugs Administred",
-                    placeholder: "Drugs Administred",
-                  },
-                  {
                     name: "heartBeat",
                     type: "number",
                     label: "Heart Beat",
@@ -101,7 +94,6 @@ export const ViewChild = () => {
                                     : []),
                                   {
                                     temperature: alertData.temperature,
-                                    drugAdministred: alertData.drugsAdministred,
                                     respiratoryFrequency:
                                       alertData.respiratoryFrequency,
                                     heartBeat: alertData.heartBeat,
@@ -110,7 +102,11 @@ export const ViewChild = () => {
                                       ":" +
                                       date.getMinutes() +
                                       " " +
-                                      date.getDate(),
+                                      date.getDate() +
+                                      "/" +
+                                      (date.getUTCMonth() <= 9
+                                        ? "0" + date.getUTCMonth()
+                                        : date.getUTCMonth() <= 9),
                                   },
                                 ],
                               }
@@ -143,7 +139,6 @@ export const ViewChild = () => {
                   <IonGrid>
                     <IonRow>
                       <IonCol>
-                        {" "}
                         <IonIcon icon={thermometerOutline}></IonIcon>
                         {measurement.temperature}
                       </IonCol>
