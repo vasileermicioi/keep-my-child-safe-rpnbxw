@@ -1,37 +1,11 @@
-import React from "react";
-import {
-  IonContent,
-  IonHeader,
-  IonPage,
-  IonTitle,
-  IonToolbar,
-  IonInput,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonItemDivider,
-  IonButton,
-  IonRouterLink,
-  IonRouterContext,
-} from "@ionic/react";
-
+import { IonPage, IonButton } from "@ionic/react";
+import "./Login.css";
 export const Login = () => {
   return (
     <IonPage>
-      <IonHeader>Login</IonHeader>
-      <IonContent>
-        <IonList>
-          <IonItem>
-            <IonLabel>Username</IonLabel>
-            <IonInput></IonInput>
-          </IonItem>
-          <IonItem>
-            <IonLabel>Password</IonLabel>
-            <IonInput type="password"></IonInput>
-          </IonItem>
-          <IonButton routerLink="/children">Login</IonButton>
-        </IonList>
-      </IonContent>
+      <IonButton routerLink="/children" size={"large"}>
+        Login
+      </IonButton>
     </IonPage>
   );
 };

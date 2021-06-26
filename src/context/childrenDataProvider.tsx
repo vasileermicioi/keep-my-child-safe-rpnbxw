@@ -14,71 +14,12 @@ export interface Child {
   birthdate: {
     year: number;
     month: number;
+    day: number;
   };
   id: string;
   avatar?: string;
   measurements?: measurement[];
 }
-
-export const children: Child[] = [
-  {
-    Name: "Mihai",
-    birthdate: {
-      month: 4,
-      year: 13,
-    },
-    id: "0",
-    measurements: [
-      {
-        temperature: 37.9,
-      },
-      {
-        temperature: 38.9,
-      },
-      {
-        temperature: 36.7,
-      },
-    ],
-  },
-  {
-    Name: "Nikita",
-    birthdate: {
-      month: 11,
-      year: 7,
-    },
-    id: "1",
-    measurements: [
-      {
-        temperature: 37.7,
-      },
-      {
-        temperature: 38.7,
-      },
-      {
-        temperature: 36.6,
-      },
-    ],
-  },
-  {
-    Name: "Anastasia",
-    birthdate: {
-      month: 2,
-      year: 0,
-    },
-    id: "2",
-    measurements: [
-      {
-        temperature: 37.4,
-      },
-      {
-        temperature: 38.4,
-      },
-      {
-        temperature: 36.4,
-      },
-    ],
-  },
-];
 
 export const childDataContext = createContext({} as any);
 
@@ -89,6 +30,7 @@ const ChildrenDataProvider = (props: any) => {
       birthdate: {
         month: 2,
         year: 2008,
+        day: 13,
       },
       id: "0",
       measurements: [
@@ -114,6 +56,7 @@ const ChildrenDataProvider = (props: any) => {
       birthdate: {
         month: 5,
         year: 2014,
+        day: 8,
       },
       id: "1",
       measurements: [
@@ -133,6 +76,7 @@ const ChildrenDataProvider = (props: any) => {
       birthdate: {
         month: 4,
         year: 2021,
+        day: 9,
       },
       id: "2",
       measurements: [
