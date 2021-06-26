@@ -8,8 +8,10 @@ import {
   IonFabButton,
   IonHeader,
   IonIcon,
+
   IonItem,
   IonLabel,
+
   IonList,
   IonPage,
   IonRefresher,
@@ -32,7 +34,9 @@ export const ChildList = () => {
     <IonPage id="home-page">
       <IonHeader>
         <IonToolbar>
+
           <IonTitle>Children</IonTitle>
+
         </IonToolbar>
       </IonHeader>
       <IonFab vertical="top" horizontal="end" slot="fixed">
@@ -82,8 +86,10 @@ export const ChildList = () => {
                           day: (alertData.age as String).slice(8, 10),
                         },
                         id: "_" + Math.random().toString(36).substr(2, 9),
+
                         avarar:
                           "https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y",
+
                       },
                     ]);
                   },
@@ -99,6 +105,7 @@ export const ChildList = () => {
         <IonRefresher slot="fixed">
           <IonRefresherContent></IonRefresherContent>
         </IonRefresher>
+
         <IonList>
           {(childData as Child[]).map((child: Child) => (
             <IonItem routerLink={`child/${child.id}`}>
@@ -119,6 +126,7 @@ export const ChildList = () => {
                 </p>
               </IonLabel>
             </IonItem>
+
           ))}
         </IonList>
       </IonContent>

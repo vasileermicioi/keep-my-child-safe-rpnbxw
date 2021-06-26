@@ -45,7 +45,9 @@ export const ViewChild = () => {
       <IonHeader translucent>
         <IonToolbar>
           <IonButtons slot="start">
+
             <IonBackButton text="Back" defaultHref="/ChildList"></IonBackButton>
+
           </IonButtons>
           <IonTitle>Child metrics</IonTitle>
         </IonToolbar>
@@ -100,9 +102,11 @@ export const ViewChild = () => {
                                     dateTime:
                                       date.getHours() +
                                       ":" +
+
                                       (date.getMinutes() <= 9
                                         ? "0" + date.getMinutes()
                                         : date.getMinutes() <= 9) +
+
                                       " " +
                                       date.getDate() +
                                       "/" +
@@ -134,6 +138,7 @@ export const ViewChild = () => {
 
             {content.measurements?.reverse().map((measurement) => {
               return (
+
                 <IonCard>
                   <IonList inset={true} lines="full">
                     <IonListHeader>
@@ -180,6 +185,7 @@ export const ViewChild = () => {
                     </IonGrid>
                   </IonList>
                 </IonCard>
+
               );
             })}
           </>

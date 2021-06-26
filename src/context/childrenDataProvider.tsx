@@ -29,7 +29,9 @@ const ChildrenDataProvider = (props: any) => {
       Name: "Mihai",
       birthdate: {
         month: 2,
+
         year: 2018,
+
         day: 13,
       },
       id: "0",
@@ -57,7 +59,9 @@ const ChildrenDataProvider = (props: any) => {
       Name: "Nikita",
       birthdate: {
         month: 5,
+
         year: 2019,
+
         day: 8,
       },
       id: "1",
